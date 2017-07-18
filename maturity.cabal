@@ -1,0 +1,64 @@
+cabal-version:       >= 1.24
+name:                maturity
+version:             0.1.1
+synopsis:            A technical capability and operational maturity model
+license:             BSD3
+license-file:        LICENCE
+author:              Andrew Cowie <andrew@operationaldynamics.com>
+maintainer:          Andrew Cowie <andrew@operationaldynamics.com>
+copyright:           © 2017 Operational Dynamics Consulting Pty Ltd, and Others
+category:            Text
+tested-with:         GHC == 8.0
+
+build-type:          Simple
+
+library
+  default-language:  Haskell2010
+
+  build-depends:     base,
+                     text
+
+  hs-source-dirs:    lib
+
+  exposed-modules:   Maturity
+
+  ghc-options:       -O2
+                     -Wall
+                     -Wwarn
+                     -fwarn-tabs
+
+  ghc-prof-options:  -fprof-auto-top
+
+
+test-suite           check
+  default-language:  Haskell2010
+  type:              exitcode-stdio-1.0
+
+  build-depends:     base,
+                     mtl,
+                     HUnit,
+                     hspec,
+                     text,
+                     maturity
+
+  hs-source-dirs:    tests
+  main-is:           CheckProgram.hs
+                      
+executable           snippet
+  default-language:  Haskell2010
+
+  build-depends:     base,
+                     text,
+                     maturity
+
+  ghc-options:       -threaded
+                     -Wall
+                     -Wwarn
+                     -fwarn-tabs
+                     -fno-warn-type-defaults
+                     -fno-warn-unused-imports
+
+  hs-source-dirs:    tests
+  main-is:           Snippet.hs
+                      
+-- vim: set tabstop=21 expandtab:
