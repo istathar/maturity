@@ -1,25 +1,37 @@
+{-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_HADDOCK hide, not-home #-}
 
 module Maturity.Rubric where
 
 import Data.Text (Text)
-import Text.Render (Render)
+import Text.Render (Render, render)
 
 --
 -- | There are two axis, Technical Maturity and Operational Maturity.
 --
 
-model :: (Technical, Operational)
+model :: (TechnicalMaturity, OperationalMaturity)
 model = undefined
 
-data Technical = Technical 
+data TechnicalMaturity
+    = Technical
 
-data Operational = Operational Customer Security Management
+data OperationalMaturity
+    = Operational CustomerViewpoint SecurityLevel ServiceManagement
 
-data Customer = Discussion | Premise | Demo | Tried | Initial | Enough 
-    deriving (Enum, Show)
+--
+-- | The degree of completeness of a Component, from a customer's point of view
+--
+data CustomerViewpoint
+    = Discussion
+    | Premise
+    | Demo
+    | Tried
+    | Initial
+    | Enough
+    deriving (Enum, Eq, Ord, Bounded, Show)
 
-instance Render Customer where
+instance Render CustomerViewpoint where
     render Discussion =
         "Preliminary discussion stage"
     render Premise =
@@ -34,8 +46,41 @@ instance Render Customer where
         "Customer has enough of what they want; they won't be interested further"
 
 
-data Security = None | LocalFile | Enterprise
+--
+-- | What security and authentication controls are in place, 2 points
+--
+data SecurityLevel
+    = Insecure
+    | LocalFile
+    | Enterprise
+    deriving (Enum, Eq, Ord, Bounded, Show)
 
 
+instance Render SecurityLevel where
+    render Insecure =
+        "No security measures implemented"
+    render LocalFile =
+        "Access controlled by hard-coded local files"
+    render Enterprise =
+        "Kerberos, Single Sign On, or other enterprise control for authentication in use"
 
-data Management = Undefined | ServiceLevelAgreement | ServiceProviderGroup | Budget
+
+--
+-- | Service Management constructs, 3 points
+--
+data ServiceManagement
+    = Undefined
+    | ServiceLevel
+    | IncidentReponse
+    | Budget
+    deriving (Enum, Eq, Ord, Bounded, Show)
+
+instance Render ServiceManagement where
+    render Undefined =
+        "No production service management implemented"
+    render ServiceLevel =
+        "Service Level Objectives and Contracts defined and agreed"
+    render IncidentReponse =
+        "Service Provider Group designated and active"
+    render Budget =
+        "Funding for ongoing sustainment of the Service in place"
