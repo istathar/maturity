@@ -20,7 +20,9 @@ library
 
   hs-source-dirs:    lib
 
-  exposed-modules:   Maturity
+  exposed-modules:   Maturity.Scale
+  other-modules:     Maturity.Types
+                     Maturity.Rubric
 
   ghc-options:       -O2
                      -Wall
