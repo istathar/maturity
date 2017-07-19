@@ -7,7 +7,22 @@ import Data.Text (Text)
 import qualified Data.Text.IO as T
 
 import Maturity.Scale
+import Maturity.Rubric
+import Text.Render (render)
+
+model :: Model
+model = Model
+    (Technical CodeExists DesignChoices)
+    (Operational Discussion Insecure Undefined)
+
+vault = Model
+    (Technical OthersKnow Deployable)
+    (Operational Demo Enterprise Undefined)
 
 main :: IO ()
 main = do
-    T.putStrLn "Hello World"
+    putStrLn (show model)
+    T.putStrLn (render model)
+    putStrLn ""
+    putStrLn (show vault)
+    T.putStrLn (render vault)
