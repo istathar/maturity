@@ -15,6 +15,14 @@ model = Model
     (Technical CodeExists DesignChoices)
     (Operational Discussion Insecure Undefined)
 
+vault = Model
+    (Technical OthersKnow Deployable)
+    (Operational Demo Enterprise Undefined)
+
 main :: IO ()
 main = do
+    putStrLn (show model)
     T.putStrLn (render model)
+    putStrLn ""
+    putStrLn (show vault)
+    T.putStrLn (render vault)

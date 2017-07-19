@@ -1,8 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
 {-# OPTIONS_HADDOCK hide, not-home #-}
 
 module Maturity.Rubric where
 
+import Data.String.Here
 import Data.Text (Text)
 import qualified Data.Text as T
 import Text.Render (Render, render)
@@ -73,20 +75,40 @@ data TechnicalProgress
     deriving (Enum, Eq, Ord, Bounded, Show)
 
 instance Render TechnicalProgress where
-    render Beginning =
-        "Theoretical work that may develop into a Component has begun"
-    render DesignChoices =
-        "We've surveyed the available options. A technology choice has been made. Preliminary engineering design has been done."
-    render InstalledLocally =
-        "Someone has figured out how to install it locally on their workstation."
-    render ProvedConcept =
-        "A proof of concept has been done. The technology chosen and design of how we will use it has been validated."
-    render Deployable =
-        "We are now able to deploy this technology in our environment, using our automation, testing, and tooling."
-    render Modifiable =
-        "We have successfully adapted the technology to perform the role we envisioned for it."
-    render Optimized =
-        "The service is in production. We are able to monitor its performance, carry out tuning, manage its resource consumption, and optomize its performance."
+    render Beginning = [here|
+Theoretical work that may develop into a Component has begun.
+|]
+
+    render DesignChoices = [here|
+We've surveyed the available options,
+a technology choice has been made, and
+preliminary engineering design has been done.
+|]
+
+    render InstalledLocally = [here|
+Someone has figured out how to install it locally on their workstation.
+|]
+
+    render ProvedConcept = [here|
+A proof of concept has been done using the technology chosen, and
+design of how we will use it has been validated.
+|]
+
+    render Deployable = [here|
+We are now able to deploy this technology in our environment
+using our automation, testing, and tooling.
+|]
+
+    render Modifiable = [here|
+We have successfully adapted the technology to perform the
+role we envisioned for it.
+|]
+
+    render Optimized = [here|
+The service is in production. We are able to monitor its performance,
+carry out tuning, manage its resource consumption, and
+optomize its performance.
+|]
 
 
 --
@@ -127,12 +149,16 @@ data SecurityLevel
 
 
 instance Render SecurityLevel where
-    render Insecure =
-        "No security measures implemented"
-    render LocalFile =
-        "Access controlled by hard-coded local files"
-    render Enterprise =
-        "Kerberos, Single Sign On, or other enterprise control for authentication in use"
+    render Insecure = [here|
+No security measures implemented
+|]
+    render LocalFile = [here|
+Access controlled by hard-coded local files
+|]
+    render Enterprise = [here|
+Kerberos, Single Sign On, or other enterprise
+control for authentication in use
+|]
 
 
 --
