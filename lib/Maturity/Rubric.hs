@@ -4,20 +4,35 @@
 module Maturity.Rubric where
 
 import Data.Text (Text)
+import qualified Data.Text as T
 import Text.Render (Render, render)
 
 --
 -- | There are two axis, Technical Maturity and Operational Maturity.
 --
 
-model :: (TechnicalMaturity, OperationalMaturity)
-model = undefined
+data Model = Model TechnicalMaturity OperationalMaturity
+    deriving (Show, Eq, Ord)
+
+instance Render Model where
+    render (Model technical operational) =
+        T.intercalate "\n" [ render technical, render operational]
 
 data TechnicalMaturity
     = Technical ConceptualProgress TechnicalProgress
+    deriving (Show, Eq, Ord)
 
 data OperationalMaturity
     = Operational CustomerViewpoint SecurityLevel ServiceManagement
+    deriving (Show, Eq, Ord)
+
+instance Render TechnicalMaturity where
+    render (Technical conceptual progress) =
+        T.intercalate "\n" [render conceptual, render progress]
+
+instance Render OperationalMaturity where
+    render (Operational customer security service) =
+        T.intercalate "\n" [ render customer, render security, render service]
 
 --
 -- | How far has an idea progressed from inception to a team being able to work
