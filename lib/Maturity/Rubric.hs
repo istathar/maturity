@@ -5,36 +5,21 @@
 module Maturity.Rubric where
 
 import Data.String.Here
-import Data.Text (Text)
-import qualified Data.Text as T
 import Text.Render (Render, render)
 
 --
--- | There are two axis, Technical Maturity and Operational Maturity.
+-- | There are two axis, Technical Maturity and Operational Maturity. Both are
+-- scored on a scale of 0 to 10 out of 10. Haskell Enums are zero origin so the
+-- first entry in each Sum type is value 0.
 --
 
 data Model = Model TechnicalMaturity OperationalMaturity
-    deriving (Show, Eq, Ord)
-
-instance Render Model where
-    render (Model technical operational) =
-        T.intercalate "\n" [ render technical, render operational]
 
 data TechnicalMaturity
     = Technical ConceptualProgress TechnicalProgress
-    deriving (Show, Eq, Ord)
 
 data OperationalMaturity
     = Operational CustomerViewpoint SecurityLevel ServiceManagement
-    deriving (Show, Eq, Ord)
-
-instance Render TechnicalMaturity where
-    render (Technical conceptual progress) =
-        T.intercalate "\n" [render conceptual, render progress]
-
-instance Render OperationalMaturity where
-    render (Operational customer security service) =
-        T.intercalate "\n" [ render customer, render security, render service]
 
 --
 -- | How far has an idea progressed from inception to a team being able to work
@@ -46,7 +31,7 @@ data ConceptualProgress
     | CodeExists
     | OthersKnow
     | TeamCanHack
-    deriving (Enum, Eq, Ord, Bounded, Show)
+
 
 instance Render ConceptualProgress where
     render Inception =
@@ -72,7 +57,6 @@ data TechnicalProgress
     | Deployable
     | Modifiable
     | Optimized
-    deriving (Enum, Eq, Ord, Bounded, Show)
 
 instance Render TechnicalProgress where
     render Beginning = [here|
@@ -121,7 +105,6 @@ data CustomerViewpoint
     | Tried
     | Initial
     | Enough
-    deriving (Enum, Eq, Ord, Bounded, Show)
 
 instance Render CustomerViewpoint where
     render Discussion =
@@ -137,6 +120,10 @@ instance Render CustomerViewpoint where
     render Enough =
         "Customer has enough of what they want; they won't be interested further"
 
+{-
+    Raises an interesting question; what about _other_ customers?
+-}
+
 
 --
 -- | What security and authentication controls are in place, 2 points
@@ -145,7 +132,6 @@ data SecurityLevel
     = Insecure
     | LocalFile
     | Enterprise
-    deriving (Enum, Eq, Ord, Bounded, Show)
 
 
 instance Render SecurityLevel where
@@ -169,7 +155,6 @@ data ServiceManagement
     | ServiceLevel
     | IncidentReponse
     | Budget
-    deriving (Enum, Eq, Ord, Bounded, Show)
 
 instance Render ServiceManagement where
     render Undefined =

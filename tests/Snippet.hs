@@ -7,8 +7,6 @@ import Data.Text (Text)
 import qualified Data.Text.IO as T
 
 import Maturity.Scale
-import Maturity.Rubric
-import Text.Render (render)
 
 model :: Model
 model = Model
