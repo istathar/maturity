@@ -24,6 +24,8 @@ library
   exposed-modules:   Maturity.Scale
   other-modules:     Maturity.Types
                      Maturity.Rubric
+                     Maturity.Instances
+                     Text.Render
 
   ghc-options:       -O2
                      -Wall
