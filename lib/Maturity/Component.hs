@@ -12,7 +12,7 @@ import Maturity.Types
 --
 -- | There are two axis, Technical Maturity and Operational Maturity. Both are
 -- scored on a scale of 0 to 10 out of 10. Haskell Enums are zero origin so the
--- first entry in each Sum type is value 0.
+-- first entry in each sum type is value 0.
 --
 
 data Model = Model TechnicalMaturity OperationalMaturity
@@ -23,10 +23,7 @@ data TechnicalMaturity
 data OperationalMaturity
     = Operational CustomerViewpoint SecurityLevel ServiceManagement
 
---
--- | How far has an idea progressed from inception to a team being able to work
--- on it and sustain it?
---
+
 data ConceptualProgress
     = Inception
     | WrittenDown
@@ -35,6 +32,12 @@ data ConceptualProgress
     | TeamCanHack
 
 instance Rubric ConceptualProgress where
+    summary = [here|
+        How far has an idea progressed from inception
+        to a team being able to work on it and sustain
+        it?
+    |]
+
     description Inception = [here|
         There's an idea.
     |]
@@ -54,10 +57,7 @@ instance Rubric ConceptualProgress where
         to the code base.
     |]
 
---
--- | How far has the project progressed from it's beginning through having been
--- adapted to our needs, in production, and being tuned & optimized.
---
+
 data TechnicalProgress
     = Beginning
     | DesignChoices
@@ -68,6 +68,13 @@ data TechnicalProgress
     | Optimized
 
 instance Rubric TechnicalProgress where
+    summary = [here|
+        How far has the project progressed from it's
+        beginning through having been adapted to our
+        needs, in production, and being tuned &
+        optimized.
+    |]
+
     description Beginning = [here|
         Theoretical work that may develop into a
         Component has begun.
@@ -109,9 +116,6 @@ instance Rubric TechnicalProgress where
     |]
 
 
---
--- | The degree of completeness of a Component, from a customer's point of view
---
 data CustomerViewpoint
     = Discussion
     | Premise
@@ -121,6 +125,11 @@ data CustomerViewpoint
     | Enough
 
 instance Rubric CustomerViewpoint where
+    summary = [here|
+        The degree of completeness of a Component, from
+        a customer's point of view
+    |]
+
     description Discussion = [here|
         Preliminary discussion stage.
     |]
@@ -149,30 +158,33 @@ instance Rubric CustomerViewpoint where
 -}
 
 
---
--- | What security and authentication controls are in place, 2 points
---
 data SecurityLevel
     = Insecure
     | LocalFile
     | Enterprise
 
-
 instance Rubric SecurityLevel where
+    summary = [here|
+        What security and authentication controls are
+        in place?
+    |]
+
     description Insecure = [here|
-        No security measures implemented
+        No security measures are implemented.
     |]
     description LocalFile = [here|
-        Access controlled by hard-coded local files
+        Access is controlled, but only by hard-coded
+        local files controlled by the team that wrote
+        the component.
     |]
     description Enterprise = [here|
-        Kerberos, Single Sign On, or other enterprise
-        control for authentication in use
+        Kerberos, single sign on, or some other
+        enterprise-grade mechanism for authentication
+        in use.
     |]
 
 
 --
--- | Service Management constructs, 3 points
 --
 data ServiceManagement
     = Undefined
@@ -181,17 +193,23 @@ data ServiceManagement
     | Budget
 
 instance Rubric ServiceManagement where
+    summary = [here|
+        Degree to which the initiative behind this
+        component has evolved into a mature service
+        that can be run in production.
+    |]
     description Undefined = [here|
         No production service management implemented.
     |]
     description ServiceLevel = [here|
-        Service Level Objectives and Contracts defined
-        and agreed.
+        Service Level Objectives and boundary contracts
+        are defined and agreed.
     |]
     description IncidentReponse = [here|
         Service Provider Group designated and active.
     |]
     description Budget = [here|
-        Funding for ongoing sustainment of the Service
-        in place.
+        Funding for this component to be run as an
+        ongoing service is in place.
     |]
+
