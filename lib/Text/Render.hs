@@ -5,7 +5,8 @@ module Text.Render (
     Render(..),
     indefinite,
 
-    wrap
+    wrap,
+    underline
 ) where
 
 import Data.List (foldl', intersperse)
@@ -63,4 +64,12 @@ wrapLine margin (pos,builder) word =
     if width' > margin
         then (width , builder <> "\n" <> fromText word)
         else (width', builder <> " "  <> fromText word)
+
+
+underline :: Char -> Text -> Text
+underline level title =
+  let
+    underline = T.map (\_ -> level) title
+  in
+    T.concat [title, "\n", underline]
 
