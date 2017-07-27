@@ -36,20 +36,23 @@ data ConceptualProgress
 
 instance Rubric ConceptualProgress where
     description Inception = [here|
-There's an idea.
-|]
+        There's an idea.
+    |]
     description WrittenDown = [here|
-The idea has been written down; others can learn from it.
-|]
+        The idea has been written down; others can
+        learn from it.
+    |]
     description CodeExists = [here|
-The concept has progressed to actual code!
-|]
+        The concept has progressed to actual code!
+    |]
     description OthersKnow = [here|
-Others on the team know about the concept, and can see its code.
-|]
+        Others on the team know about the concept,
+        and can see its code.
+    |]
     description TeamCanHack = [here|
-The team as a whole can actually contribute to the code base.
-|]
+        The team as a whole can actually contribute
+        to the code base.
+    |]
 
 --
 -- | How far has the project progressed from it's beginning through having been
@@ -66,39 +69,44 @@ data TechnicalProgress
 
 instance Rubric TechnicalProgress where
     description Beginning = [here|
-Theoretical work that may develop into a Component has begun.
-|]
+        Theoretical work that may develop into a
+        Component has begun.
+    |]
 
     description DesignChoices = [here|
-We've surveyed the available options,
-a technology choice has been made, and
-preliminary engineering design has been done.
-|]
+        We've surveyed the available options,
+        a technology choice has been made, and
+        preliminary engineering design has been done.
+    |]
 
     description InstalledLocally = [here|
-Someone has figured out how to install it locally on their workstation.
-|]
+        Someone has figured out how to install it
+        locally on their workstation.
+    |]
 
     description ProvedConcept = [here|
-A proof of concept has been done using the technology chosen, and
-design of how we will use it has been validated.
-|]
+        A proof of concept has been done using the
+        technology chosen, and design of how we will
+        use it has been validated.
+    |]
 
     description Deployable = [here|
-We are now able to deploy this technology in our environment
-using our automation, testing, and tooling.
-|]
+        We are now able to deploy this technology in
+        our environment using our automation, testing,
+        and tooling.
+    |]
 
     description Modifiable = [here|
-We have successfully adapted the technology to perform the
-role we envisioned for it.
-|]
+        We have successfully adapted the technology to
+        perform the role we envisioned for it.
+    |]
 
     description Optimized = [here|
-The service is in production. We are able to monitor its performance,
-carry out tuning, manage its resource consumption, and
-optomize its performance.
-|]
+        The service is in production. We are able to
+        monitor its performance, carry out tuning,
+        manage its resource consumption, and optomize
+        its performance.
+    |]
 
 
 --
@@ -113,18 +121,28 @@ data CustomerViewpoint
     | Enough
 
 instance Rubric CustomerViewpoint where
-    description Discussion =
-        "Preliminary discussion stage"
-    description Premise =
-        "Premise has been documented and the customer has accepted it"
-    description Demo =
-        "Customer has seen a demo"
-    description Tried =
-        "Customer has tried the component themselves"
-    description Initial =
-        "Sufficient functionality is present for initial use by customer"
-    description Enough =
-        "Customer has enough of what they want; they won't be interested further"
+    description Discussion = [here|
+        Preliminary discussion stage.
+    |]
+    description Premise = [here|
+        "Premise has been documented and the customer
+        has accepted it.
+    |]
+    description Demo = [here|
+        Customer has seen a demo.
+    |]
+
+    description Tried = [here|
+        Customer has tried the component themselves.
+    |]
+    description Initial = [here|
+        Sufficient functionality is present for
+        initial use by customer.
+    |]
+    description Enough = [here|
+        Customer has enough of what they want; they
+        won't be interested further.
+    |]
 
 {-
     Raises an interesting question; what about _other_ customers?
@@ -163,11 +181,17 @@ data ServiceManagement
     | Budget
 
 instance Rubric ServiceManagement where
-    description Undefined =
-        "No production service management implemented"
-    description ServiceLevel =
-        "Service Level Objectives and Contracts defined and agreed"
-    description IncidentReponse =
-        "Service Provider Group designated and active"
-    description Budget =
-        "Funding for ongoing sustainment of the Service in place"
+    description Undefined = [here|
+        No production service management implemented.
+    |]
+    description ServiceLevel = [here|
+        Service Level Objectives and Contracts defined
+        and agreed.
+    |]
+    description IncidentReponse = [here|
+        Service Provider Group designated and active.
+    |]
+    description Budget = [here|
+        Funding for ongoing sustainment of the Service
+        in place.
+    |]
