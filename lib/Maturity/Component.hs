@@ -41,7 +41,7 @@ instance Rubric ConceptualProgress where
     |]
 
     description Inception = [here|
-        There's an idea.
+        There exists an idea.
     |]
     description WrittenDown = [here|
         The idea has been written down; others can
@@ -87,7 +87,8 @@ instance Rubric TechnicalProgress where
     description DesignChoices = [here|
         We've surveyed the available options,
         a technology choice has been made, and
-        preliminary engineering design has been done.
+        preliminary engineering design has been
+        completed.
     |]
 
     description InstalledLocally = [here|
@@ -144,7 +145,7 @@ instance Rubric CustomerViewpoint where
         has accepted it.
     |]
     description Demo = [here|
-        Customer has seen a demo.
+        Customer has seen a demo!
     |]
 
     description Tried = [here|
