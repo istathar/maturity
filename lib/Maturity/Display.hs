@@ -31,7 +31,7 @@ display (rubric :: a) =
     levels =
         enumFrom (minBound @a)
     descriptions = 
-        fmap (wrap 55 . description) levels
+        fmap (displayLevel) levels
   in
     T.concat
         [ title @a
@@ -42,6 +42,40 @@ display (rubric :: a) =
         , "\n\n"
         , T.intercalate "\n\n" descriptions
         , "\n"
+        ]
+
+--
+-- | Given a Rubric value, output a wrapped version of its description as if it
+-- were a numbered (<ol>, in HTML speak) list, with the remainder of the
+-- description's lines offset to the right by a hanging indent.
+--
+displayLevel :: (Rubric a, Enum a, Bounded a) => a -> Text
+displayLevel level =
+  let
+    paragraph = wrap 55 (description level)     -- WARNING MAGIC NUMBER
+    number = fromEnum level
+    list = T.lines paragraph
+  in
+    hangingIndent number list
+
+hangingIndent :: Int -> [Text] -> Text
+hangingIndent _ [] =
+    T.empty
+hangingIndent ordinal [first] =
+    listItem ordinal first
+hangingIndent ordinal (first:remainders) =
+  let
+    first' = listItem ordinal first
+    remainders' = fmap (T.append "   ") remainders
+  in
+    T.intercalate "\n" (first':remainders')
+
+listItem :: Int -> Text -> Text
+listItem ordinal first =
+    T.concat
+        [ T.pack (show ordinal)
+        , ". "
+        , first
         ]
 
 
