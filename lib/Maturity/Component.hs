@@ -140,7 +140,7 @@ instance Rubric CustomerViewpoint where
         Preliminary discussion stage.
     |]
     description Premise = [here|
-        "Premise has been documented and the customer
+        Premise has been documented and the customer
         has accepted it.
     |]
     description Demo = [here|

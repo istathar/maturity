@@ -68,8 +68,5 @@ wrapLine margin (pos,builder) word =
 
 underline :: Char -> Text -> Text
 underline level title =
-  let
-    underline = T.map (\_ -> level) title
-  in
-    T.concat [title, "\n", underline]
+    T.map (\_ -> level) title
 

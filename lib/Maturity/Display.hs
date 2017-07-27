@@ -12,6 +12,7 @@ import Text.Render (Render, render, wrap, underline)
 
 import Maturity.Types
 import Maturity.Component
+import Maturity.Instances
 
 --
 -- | Display descriptive meta information about a Rubric type.
@@ -23,8 +24,6 @@ import Maturity.Component
 display :: (Rubric a, Enum a, Bounded a) => a -> Text
 display (rubric :: a) =
   let
-    headline =
-        underline '-' (title @a)
     maxScore =
         T.pack (show (fromEnum (maxBound @a)))
     value =
@@ -34,6 +33,42 @@ display (rubric :: a) =
     descriptions = 
         fmap (wrap 55 . description) levels
   in
-    T.intercalate "\n\n"
-        (T.concat [headline,"\n",value] : descriptions)
+    T.concat
+        [ title @a
+        , " "
+        , value
+        , "\n"
+        , underline '-' (title @a)
+        , "\n\n"
+        , T.intercalate "\n\n" descriptions
+        , "\n"
+        ]
+
+
+describe :: Model -> Text
+describe
+    (Model
+        (Technical conceptual technical)
+        (Operational customer security service)
+    ) =
+    T.intercalate "\n"
+        [ describeMaturity "Technical Maturity"
+        , display conceptual
+        , display technical
+        , ""
+        , describeMaturity "Operational Maturity"
+        , display customer
+        , display security
+        , display service
+        ]
+
+describeMaturity :: Text -> Text
+describeMaturity title =
+    T.concat
+        [ title
+        , " (10 points total)"
+        , "\n"
+        , underline '=' title
+        , "\n"
+        ]
 

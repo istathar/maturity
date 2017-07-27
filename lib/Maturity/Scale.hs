@@ -13,6 +13,7 @@ module Maturity.Scale
 
     Rubric(..),
     display,
+    describe,
 
     Render(..)
 )
