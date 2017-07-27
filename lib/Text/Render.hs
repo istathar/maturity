@@ -3,12 +3,19 @@
 module Text.Render (
     module Export,
     Render(..),
-    indefinite
+    indefinite,
+
+    wrap
 ) where
 
+import Data.List (foldl', intersperse)
+import Data.Monoid ((<>))
 import Data.Text (Text)
 import qualified Data.Text as Export (Text)
 import qualified Data.Text as T
+import qualified Data.Text.Lazy as L
+import Data.Text.Lazy.Builder
+
 
 class Render a where
     render :: a -> Text
@@ -27,4 +34,33 @@ indefinite text =
     if T.null text
         then T.empty
         else T.append article text
+
+--
+-- | Often the input text represents a paragraph, but does not have any
+-- internal newlines (representing word wrapping). This function takes a line
+-- of text and inserts newlines to simulate such folding. It also appends a
+-- trailing newline to finish the paragraph.
+--
+wrap :: Int -> Text -> Text
+wrap margin text =
+  let
+    built = wrapHelper margin (T.words text)
+  in
+    L.toStrict (toLazyText built)
+
+wrapHelper :: Int -> [Text] -> Builder
+wrapHelper _ [] = ""
+wrapHelper _ [x]  = fromText x
+wrapHelper margin (x:xs) =
+    snd $ foldl' (wrapLine margin) (T.length x, fromText x) xs
+
+wrapLine :: Int -> (Int, Builder) -> Text -> (Int, Builder)
+wrapLine margin (pos,builder) word =
+  let
+    width = T.length word
+    width' = pos + width + 1
+  in
+    if width' > margin
+        then (width , builder <> "\n" <> fromText word)
+        else (width', builder <> " "  <> fromText word)
 
