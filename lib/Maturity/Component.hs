@@ -2,10 +2,12 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# OPTIONS_HADDOCK hide, not-home #-}
 
-module Maturity.Rubric where
+module Maturity.Component where
 
 import Data.String.Here
 import Text.Render (Render, render)
+
+import Maturity.Types
 
 --
 -- | There are two axis, Technical Maturity and Operational Maturity. Both are
@@ -32,18 +34,22 @@ data ConceptualProgress
     | OthersKnow
     | TeamCanHack
 
-
-instance Render ConceptualProgress where
-    render Inception =
-        "There's an idea."
-    render WrittenDown =
-        "The idea has been written down; others can learn from it."
-    render CodeExists =
-        "The concept has progressed to actual code!"
-    render OthersKnow =
-        "Others on the team know about the concept, and can see its code."
-    render TeamCanHack =
-        "The team as a whole can actually contribute to the code base."
+instance Rubric ConceptualProgress where
+    description Inception = [here|
+There's an idea.
+|]
+    description WrittenDown = [here|
+The idea has been written down; others can learn from it.
+|]
+    description CodeExists = [here|
+The concept has progressed to actual code!
+|]
+    description OthersKnow = [here|
+Others on the team know about the concept, and can see its code.
+|]
+    description TeamCanHack = [here|
+The team as a whole can actually contribute to the code base.
+|]
 
 --
 -- | How far has the project progressed from it's beginning through having been
@@ -58,37 +64,37 @@ data TechnicalProgress
     | Modifiable
     | Optimized
 
-instance Render TechnicalProgress where
-    render Beginning = [here|
+instance Rubric TechnicalProgress where
+    description Beginning = [here|
 Theoretical work that may develop into a Component has begun.
 |]
 
-    render DesignChoices = [here|
+    description DesignChoices = [here|
 We've surveyed the available options,
 a technology choice has been made, and
 preliminary engineering design has been done.
 |]
 
-    render InstalledLocally = [here|
+    description InstalledLocally = [here|
 Someone has figured out how to install it locally on their workstation.
 |]
 
-    render ProvedConcept = [here|
+    description ProvedConcept = [here|
 A proof of concept has been done using the technology chosen, and
 design of how we will use it has been validated.
 |]
 
-    render Deployable = [here|
+    description Deployable = [here|
 We are now able to deploy this technology in our environment
 using our automation, testing, and tooling.
 |]
 
-    render Modifiable = [here|
+    description Modifiable = [here|
 We have successfully adapted the technology to perform the
 role we envisioned for it.
 |]
 
-    render Optimized = [here|
+    description Optimized = [here|
 The service is in production. We are able to monitor its performance,
 carry out tuning, manage its resource consumption, and
 optomize its performance.
@@ -106,18 +112,18 @@ data CustomerViewpoint
     | Initial
     | Enough
 
-instance Render CustomerViewpoint where
-    render Discussion =
+instance Rubric CustomerViewpoint where
+    description Discussion =
         "Preliminary discussion stage"
-    render Premise =
+    description Premise =
         "Premise has been documented and the customer has accepted it"
-    render Demo =
+    description Demo =
         "Customer has seen a demo"
-    render Tried =
+    description Tried =
         "Customer has tried the component themselves"
-    render Initial =
+    description Initial =
         "Sufficient functionality is present for initial use by customer"
-    render Enough =
+    description Enough =
         "Customer has enough of what they want; they won't be interested further"
 
 {-
@@ -134,17 +140,17 @@ data SecurityLevel
     | Enterprise
 
 
-instance Render SecurityLevel where
-    render Insecure = [here|
-No security measures implemented
-|]
-    render LocalFile = [here|
-Access controlled by hard-coded local files
-|]
-    render Enterprise = [here|
-Kerberos, Single Sign On, or other enterprise
-control for authentication in use
-|]
+instance Rubric SecurityLevel where
+    description Insecure = [here|
+        No security measures implemented
+    |]
+    description LocalFile = [here|
+        Access controlled by hard-coded local files
+    |]
+    description Enterprise = [here|
+        Kerberos, Single Sign On, or other enterprise
+        control for authentication in use
+    |]
 
 
 --
@@ -156,12 +162,12 @@ data ServiceManagement
     | IncidentReponse
     | Budget
 
-instance Render ServiceManagement where
-    render Undefined =
+instance Rubric ServiceManagement where
+    description Undefined =
         "No production service management implemented"
-    render ServiceLevel =
+    description ServiceLevel =
         "Service Level Objectives and Contracts defined and agreed"
-    render IncidentReponse =
+    description IncidentReponse =
         "Service Provider Group designated and active"
-    render Budget =
+    description Budget =
         "Funding for ongoing sustainment of the Service in place"

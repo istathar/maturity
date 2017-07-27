@@ -9,13 +9,19 @@ module Maturity.Scale
     SecurityLevel(..),
     ServiceManagement(..),
 
+    score,
+
+    Rubric(..),
+
     Render(..)
 )
 where
 
 import Maturity.Types
-import Maturity.Rubric
+import Maturity.Component
 import Maturity.Instances
 import Text.Render
 
+score :: Model -> String
+score = undefined
 
