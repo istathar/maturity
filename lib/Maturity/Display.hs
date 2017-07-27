@@ -4,15 +4,19 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# OPTIONS_HADDOCK hide, not-home #-}
 
-module Maturity.Display where
+module Maturity.Display
+(
+    display,
+    describe
+) where
 
 import Data.Text (Text)
 import qualified Data.Text as T
-import Text.Render (Render, render, wrap, underline)
+import Text.Render (wrap, underline)
 
 import Maturity.Types
 import Maturity.Component
-import Maturity.Instances
+import Maturity.Instances ()
 
 --
 -- | Display descriptive meta information about a Rubric type.
@@ -22,7 +26,7 @@ import Maturity.Instances
     scope at the term level (so we can then use TypeApplications). Go figure.
 -}
 display :: (Rubric a, Enum a, Bounded a) => a -> Text
-display (rubric :: a) =
+display (_ :: a) =
   let
     maxScore =
         T.pack (show (fromEnum (maxBound @a)))
@@ -97,12 +101,12 @@ describe
         ]
 
 describeMaturity :: Text -> Text
-describeMaturity title =
+describeMaturity headline =
     T.concat
-        [ title
+        [ headline
         , " (10 points total)"
         , "\n"
-        , underline '=' title
+        , underline '=' headline
         , "\n"
         ]
 

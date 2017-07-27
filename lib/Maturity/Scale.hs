@@ -21,7 +21,7 @@ where
 
 import Maturity.Types
 import Maturity.Component
-import Maturity.Instances
+import Maturity.Instances ()
 import Maturity.Display
 import Text.Render
 
