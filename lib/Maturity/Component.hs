@@ -32,6 +32,8 @@ data ConceptualProgress
     | TeamCanHack
 
 instance Rubric ConceptualProgress where
+    title = "Conceptual Progress"
+
     summary = [here|
         How far has an idea progressed from inception
         to a team being able to work on it and sustain
@@ -68,6 +70,8 @@ data TechnicalProgress
     | Optimized
 
 instance Rubric TechnicalProgress where
+    title = "Technical Progress"
+
     summary = [here|
         How far has the project progressed from it's
         beginning through having been adapted to our
@@ -111,7 +115,7 @@ instance Rubric TechnicalProgress where
     description Optimized = [here|
         The service is in production. We are able to
         monitor its performance, carry out tuning,
-        manage its resource consumption, and optomize
+        manage its resource consumption, and optimize
         its performance.
     |]
 
@@ -125,6 +129,8 @@ data CustomerViewpoint
     | Enough
 
 instance Rubric CustomerViewpoint where
+    title = "Customer's Viewpoint"
+
     summary = [here|
         The degree of completeness of a Component, from
         a customer's point of view
@@ -164,6 +170,8 @@ data SecurityLevel
     | Enterprise
 
 instance Rubric SecurityLevel where
+    title = "Security"
+
     summary = [here|
         What security and authentication controls are
         in place?
@@ -193,11 +201,14 @@ data ServiceManagement
     | Budget
 
 instance Rubric ServiceManagement where
+    title = "Service Management"
+
     summary = [here|
         Degree to which the initiative behind this
         component has evolved into a mature service
         that can be run in production.
     |]
+
     description Undefined = [here|
         No production service management implemented.
     |]

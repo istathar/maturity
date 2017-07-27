@@ -24,7 +24,7 @@ deriving instance Ord       Model
 
 instance Render Model where
     render (Model technical operational) =
-        T.intercalate "\n\n" [ render technical, render operational]
+        T.intercalate "\n\n" [render technical, render operational]
 
 deriving instance Show      TechnicalMaturity 
 deriving instance Eq        TechnicalMaturity 
@@ -40,7 +40,7 @@ deriving instance Ord       OperationalMaturity
 
 instance Render OperationalMaturity where
     render (Operational customer security service) =
-        T.intercalate "\n\n" [ render customer, render security, render service]
+        T.intercalate "\n\n" [render customer, render security, render service]
 
 deriving instance Show      ConceptualProgress
 deriving instance Enum      ConceptualProgress
