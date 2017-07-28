@@ -124,11 +124,11 @@ outputScores
     T.concat
         [ formatScores
             [valuesFrom conceptual, valuesFrom technical, Nothing]
-        , " Technical Maturity"
+        , " :: Technical Maturity"
         , "\n"
         , formatScores
             [valuesFrom customer, valuesFrom security, valuesFrom service]
-        , " Operational Maturity"
+        , " :: Operational Maturity"
         ]
 
 valuesFrom :: (Rubric a, Enum a, Bounded a) => a -> Maybe (Int,Int)
@@ -144,19 +144,39 @@ formatScores
     :: [Maybe (Int,Int)]
     -> Text
 formatScores scores =
-    foldl' represent T.empty scores
+    T.concat
+        [ foldl' represent T.empty scores
+        , " = "
+        , format (foldl' addition (0,0) scores)
+        ]
   where
     represent :: Text -> Maybe (Int,Int) -> Text
     represent acc Nothing =
         T.concat
             [ acc
-            , "    "
+--            "n/N + "
+            , "      "
             ]
     represent acc (Just (score,maxval)) =
         T.concat
-            [ acc
-            , T.pack (show score)
-            , "/"
-            , T.pack (show maxval)
+            [ if T.null acc
+                then T.empty
+                else T.append acc "+ "
+            , format (score,maxval)
             , " "
             ]
+
+    addition :: (Int,Int) -> Maybe (Int,Int) -> (Int,Int)
+    addition (score, maxval) Nothing =
+        (score, maxval)
+    addition (score, maxval) (Just (score', maxval')) =
+        (score + score', maxval + maxval')
+
+    format :: (Int, Int) -> Text
+    format (score, maxval) =
+        T.concat
+            [ T.pack (show score)
+            , "/"
+            , T.pack (show maxval)
+            ]
+
