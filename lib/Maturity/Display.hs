@@ -11,6 +11,7 @@ module Maturity.Display
     outputScores
 ) where
 
+import Data.List (foldl')
 import Data.Text (Text)
 import qualified Data.Text as T
 import Text.Render (wrap, underline)
@@ -111,3 +112,51 @@ describeMaturity headline =
         , "\n"
         ]
 
+
+outputScores :: Model -> Text
+outputScores
+    (Model
+        (Technical conceptual technical)
+        (Operational customer security service)
+    ) =
+  let
+  in
+    T.concat
+        [ formatScores
+            [valuesFrom conceptual, valuesFrom technical, Nothing]
+        , " Technical Maturity"
+        , "\n"
+        , formatScores
+            [valuesFrom customer, valuesFrom security, valuesFrom service]
+        , " Operational Maturity"
+        ]
+
+valuesFrom :: (Rubric a, Enum a, Bounded a) => a -> Maybe (Int,Int)
+valuesFrom (rubric :: a) =
+  let
+    score = fromEnum rubric
+    maxval = fromEnum (maxBound @a)
+  in
+    Just (score,maxval)
+
+
+formatScores
+    :: [Maybe (Int,Int)]
+    -> Text
+formatScores scores =
+    foldl' represent T.empty scores
+  where
+    represent :: Text -> Maybe (Int,Int) -> Text
+    represent acc Nothing =
+        T.concat
+            [ acc
+            , "    "
+            ]
+    represent acc (Just (score,maxval)) =
+        T.concat
+            [ acc
+            , T.pack (show score)
+            , "/"
+            , T.pack (show maxval)
+            , " "
+            ]
