@@ -9,11 +9,10 @@ module Maturity.Scale
     SecurityLevel(..),
     ServiceManagement(..),
 
-    score,
-
     Rubric(..),
-    display,
-    describe,
+    describeLevel,
+    describeModel,
+    outputScores,
 
     Render(..)
 )
@@ -24,7 +23,3 @@ import Maturity.Component
 import Maturity.Instances ()
 import Maturity.Display
 import Text.Render
-
-score :: Model -> String
-score = undefined
-

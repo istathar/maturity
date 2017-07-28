@@ -6,8 +6,9 @@
 
 module Maturity.Display
 (
-    display,
-    describe
+    describeLevel,
+    describeModel,
+    outputScores
 ) where
 
 import Data.Text (Text)
@@ -25,8 +26,8 @@ import Maturity.Instances ()
     The scoped type annotation on `rubric` is necessary to bring type a into
     scope at the term level (so we can then use TypeApplications). Go figure.
 -}
-display :: (Rubric a, Enum a, Bounded a) => a -> Text
-display (_ :: a) =
+describeLevel :: (Rubric a, Enum a, Bounded a) => a -> Text
+describeLevel (_ :: a) =
   let
     maxScore =
         T.pack (show (fromEnum (maxBound @a)))
@@ -35,7 +36,7 @@ display (_ :: a) =
     levels =
         enumFrom (minBound @a)
     descriptions = 
-        fmap (displayLevel) levels
+        fmap (formatLevel) levels
   in
     T.concat
         [ title @a
@@ -53,8 +54,8 @@ display (_ :: a) =
 -- were a numbered (<ol>, in HTML speak) list, with the remainder of the
 -- description's lines offset to the right by a hanging indent.
 --
-displayLevel :: (Rubric a, Enum a, Bounded a) => a -> Text
-displayLevel level =
+formatLevel :: (Rubric a, Enum a, Bounded a) => a -> Text
+formatLevel level =
   let
     paragraph = wrap 55 (description level)     -- WARNING MAGIC NUMBER
     number = fromEnum level
@@ -83,21 +84,21 @@ listItem ordinal first =
         ]
 
 
-describe :: Model -> Text
-describe
+describeModel :: Model -> Text
+describeModel
     (Model
         (Technical conceptual technical)
         (Operational customer security service)
     ) =
     T.intercalate "\n"
         [ describeMaturity "Technical Maturity"
-        , display conceptual
-        , display technical
+        , describeLevel conceptual
+        , describeLevel technical
         , ""
         , describeMaturity "Operational Maturity"
-        , display customer
-        , display security
-        , display service
+        , describeLevel customer
+        , describeLevel security
+        , describeLevel service
         ]
 
 describeMaturity :: Text -> Text

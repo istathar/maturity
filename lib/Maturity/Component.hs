@@ -5,8 +5,6 @@
 module Maturity.Component where
 
 import Data.String.Here
-import Text.Render (Render, render)
-
 import Maturity.Types
 
 --
@@ -52,7 +50,7 @@ instance Rubric ConceptualProgress where
     |]
     description OthersKnow = [here|
         Others on the team know about the concept,
-        and can see its code.
+        can see its code, and can read documentation.
     |]
     description TeamCanHack = [here|
         The team as a whole can actually contribute
