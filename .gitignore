@@ -1,2 +1,6 @@
 /.stack-work/
 /tags
+
+
+# Rendering artifacts
+/.target

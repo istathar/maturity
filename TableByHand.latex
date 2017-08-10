@@ -1,0 +1,24 @@
+Hello
+
+\huge
+\begin{center}
+\begin{tabularx}{350pt}{|>{\centering\arraybackslash}X|}
+\hline
+There exists an idea.
+\\ \hline
+The idea has been written down; others can learn from
+   it.
+\\ \hline
+The concept has progressed to actual code!
+\\ \hline
+Others on the team know about the concept, can see its
+   code, and can read documentation.
+\\ \hline
+The team as a whole can actually contribute to the code
+   base.
+\\ \hline
+\end{tabularx}
+\end{center}
+\normalsize
+
+there.

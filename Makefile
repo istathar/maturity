@@ -1,6 +1,7 @@
 all: .target Placeholder.pdf
 
 SOURCES= \
+	TableByHand.latex \
 	Placeholder.markdown
 
 .target:
