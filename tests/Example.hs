@@ -22,9 +22,12 @@ example
   => QDiagram b V2 n Any
 
 
---str = "Hello for Apéx GO01"
---This is a test of the Emergency Broadcast System.
---MMMM MM M MMMM MM MMM MMMMMMM MMMMMMMMM 123456789 MMMMMMM
+{-
+str = "Hello for Apéx GO01"
+This is a test of the Emergency Broadcast System.
+MMMM MM M MMMM MM MMM MMMMMMM MMMMMMMMM 123456789 MMMMMMM
+-}
+
 str = [here|
 We've surveyed the available options, a technology
 choice has been made, and preliminary engineering
@@ -45,6 +48,10 @@ example = text (enbox str) # fc blue
     <> rect 20 15 # fc lightgreen # showOrigin
 
 {-
+    These font names worked. Tempted to say these are
+    PangoFontDescription font family names, but I'm not
+    certain.
+
 
     # font "Linux Libertine O"
     # font "DejaVu Serif"
