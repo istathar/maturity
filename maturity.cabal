@@ -84,6 +84,7 @@ executable           render-svg
 
   hs-source-dirs:    tests
   main-is:           RenderExampleSVG.hs
+  other-modules:     Example
                       
                       
 executable           render-pgf
@@ -103,17 +104,15 @@ executable           render-pgf
 
   hs-source-dirs:    tests
   main-is:           RenderExamplePGF.hs
+  other-modules:     Example
                       
-                      
-executable           experiment
+executable           render-cairo
   default-language:  Haskell2010
 
   build-depends:     base,
                      text,
                      diagrams-lib,
-                     diagrams-pgf,
-                     diagrams-svg,
-                     maturity
+                     diagrams-cairo
 
   ghc-options:       -threaded
                      -Wall
@@ -123,6 +122,9 @@ executable           experiment
                      -fno-warn-unused-imports
 
   hs-source-dirs:    tests
-  main-is:           Experiment.hs
+  main-is:           RenderExampleViaCairo.hs
+  other-modules:     Example
+                      
+                      
                       
 -- vim: set tabstop=21 expandtab:
