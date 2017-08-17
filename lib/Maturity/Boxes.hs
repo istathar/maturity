@@ -11,6 +11,7 @@
 
 module Maturity.Boxes
 (
+    drawModelAsPage,
     drawRubricIntoBoxes,
     drawLevelIntoBox
 ) where
@@ -26,6 +27,30 @@ import Text.Render (wrap)
 import Maturity.Types
 import Maturity.Component
 import Maturity.Instances ()
+
+
+drawModelAsPage :: Model -> Drawing b n
+drawModelAsPage
+    (Model
+        (Technical conceptual technical)
+        (Operational customer security service)
+    ) =
+    vcat
+        [ drawMaturityLabel "Technical Maturity"
+        , drawRubricIntoBoxes conceptual
+        , drawRubricIntoBoxes technical
+        , drawMaturityLabel "Operational Maturity"
+        , drawRubricIntoBoxes customer
+        , drawRubricIntoBoxes security
+        , drawRubricIntoBoxes service
+        ]
+
+drawMaturityLabel :: String -> Drawing b n
+drawMaturityLabel headline =
+    text headline
+        # font "Liberation Sans"
+        # fontSize (local 1)
+        <> rect 24 1 # fc yellow
 
 --
 -- | Put the descriptive meta information about Rubric type into 
@@ -76,7 +101,7 @@ drawLevelIntoBox (level :: a) =
     paragraph = wrap 25 (description level)     -- WARNING MAGIC NUMBER
     maxval = fromEnum (maxBound @a)
     score = fromEnum level
-    palette = map (tint 0.2) (brewerSet Greens (maxval + 1))
+    palette = fmap (tint 0.2) (brewerSet Greens (maxval + 1))
 --  letters = reverse (brewerSet Greys (maxval + 1))
 --  letters = [black, black, black, white, white, white]
     letters = repeat black
@@ -89,39 +114,3 @@ drawLevelIntoBox (level :: a) =
 
 
 
-
-{-
-drawIntoDiagram :: Model -> Diagram B
-drawIntoDiagram
-
-
-
-
-describeModel :: Model -> Text
-describeModel
-    (Model
-        (Technical conceptual technical)
-        (Operational customer security service)
-    ) =
-    T.intercalate "\n"
-        [ labelMaturity "Technical Maturity"
-        , describeLevel conceptual
-        , describeLevel technical
-        , ""
-        , labelMaturity "Operational Maturity"
-        , describeLevel customer
-        , describeLevel security
-        , describeLevel service
-        ]
-
-labelMaturity :: Text -> Text
-labelMaturity headline =
-    T.concat
-        [ headline
-        , " (10 points total)"
-        , "\n"
-        , underline '=' headline
-        , "\n"
-        ]
-
--}
