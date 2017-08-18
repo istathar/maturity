@@ -35,22 +35,24 @@ drawModelAsPage
         (Technical conceptual technical)
         (Operational customer security service)
     ) =
-    vcat
+    frame 2 $ vcat
         [ drawMaturityLabel "Technical Maturity"
-        , drawRubricIntoBoxes conceptual
-        , drawRubricIntoBoxes technical
+        , hcat' (with & sep .~ 5) [
+          drawRubricIntoBoxes conceptual BuGn
+        , drawRubricIntoBoxes technical YlGnBu]
         , drawMaturityLabel "Operational Maturity"
-        , drawRubricIntoBoxes customer
-        , drawRubricIntoBoxes security
-        , drawRubricIntoBoxes service
+        , hcat' (with & sep .~ 5) [
+          drawRubricIntoBoxes customer Blues
+        , drawRubricIntoBoxes security Greens
+        , drawRubricIntoBoxes service Purples]
         ]
 
 drawMaturityLabel :: String -> Drawing b n
 drawMaturityLabel headline =
-    text headline
-        # font "Liberation Sans"
-        # fontSize (local 1)
-        <> rect 24 1 # fc yellow
+    baselineText headline
+        # font "Linux Libertine O"
+        # fontSize (local 5) # translate (r2 (-9,-2))
+        <> rect 0 12 # lineWidth 0
 
 --
 -- | Put the descriptive meta information about Rubric type into 
@@ -70,13 +72,13 @@ drawRubricIntoBoxes
         RealFloat n,
         Renderable (Path V2 n) b,
         Renderable (Text n) b)
-     => a -> Diagram b
-drawRubricIntoBoxes (_ :: a) =
+     => a -> ColorCat -> Diagram b
+drawRubricIntoBoxes (_ :: a) palette =
   let
     levels =
         enumFrom (minBound @a)
     boxes = 
-        fmap (drawLevelIntoBox) levels
+        fmap (drawLevelIntoBox palette) levels
   in
     hcat boxes
 
@@ -95,22 +97,22 @@ type Drawing b n =
     , Renderable (Text n) b
     ) => QDiagram b (V b) (N b) Any
 
-drawLevelIntoBox :: (Rubric a, Enum a, Bounded a) => a -> Drawing b n
-drawLevelIntoBox (level :: a) =
+drawLevelIntoBox :: (Rubric a, Enum a, Bounded a) => ColorCat -> a -> Drawing b n
+drawLevelIntoBox palette (level :: a) =
   let
     paragraph = wrap 25 (description level)     -- WARNING MAGIC NUMBER
     maxval = fromEnum (maxBound @a)
     score = fromEnum level
-    palette = fmap (tint 0.2) (brewerSet Greens (maxval + 1))
+    colours = fmap (tint 0.1) (brewerSet palette (maxval + 1))
 --  letters = reverse (brewerSet Greys (maxval + 1))
 --  letters = [black, black, black, white, white, white]
     letters = repeat black
   in
     text (T.unpack paragraph)
         # fc (letters !! score)
-        # font "Linux Libertine O"
+        # font "Nimbus Sans L"
         # fontSize (local 1)
-        <> rect 18 14 # fc (palette !! score)
+        <> rect 18 14 # fc (colours !! score)
 
 
 
