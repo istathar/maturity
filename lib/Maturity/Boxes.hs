@@ -38,13 +38,13 @@ drawModelAsPage
     frame 2 $ vcat
         [ drawMaturityLabel "Technical Maturity"
         , hcat' (with & sep .~ 5) [
-          drawRubricIntoBoxes conceptual BuGn
-        , drawRubricIntoBoxes technical YlGnBu]
+          drawRubricIntoBoxes conceptual Greens
+        , drawRubricIntoBoxes technical Blues]
         , drawMaturityLabel "Operational Maturity"
         , hcat' (with & sep .~ 5) [
-          drawRubricIntoBoxes customer Blues
-        , drawRubricIntoBoxes security Greens
-        , drawRubricIntoBoxes service Purples]
+          drawRubricIntoBoxes customer Purples
+        , drawRubricIntoBoxes security Reds
+        , drawRubricIntoBoxes service YlOrBr]
         ]
 
 drawMaturityLabel :: String -> Drawing b n
@@ -103,7 +103,7 @@ drawLevelIntoBox palette (level :: a) =
     paragraph = wrap 25 (description level)     -- WARNING MAGIC NUMBER
     maxval = fromEnum (maxBound @a)
     score = fromEnum level
-    colours = fmap (tint 0.1) (brewerSet palette (maxval + 1))
+    colours = fmap (tint 0.05) (brewerSet palette (maxval + 1))
 --  letters = reverse (brewerSet Greys (maxval + 1))
 --  letters = [black, black, black, white, white, white]
     letters = repeat black
@@ -112,7 +112,7 @@ drawLevelIntoBox palette (level :: a) =
         # fc (letters !! score)
         # font "Nimbus Sans L"
         # fontSize (local 1)
-        <> rect 18 14 # fc (colours !! score)
+        <> rect 19 15 # fc (colours !! score)
 
 
 
