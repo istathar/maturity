@@ -104,15 +104,25 @@ drawLevelIntoBox palette (level :: a) =
     maxval = fromEnum (maxBound @a)
     score = fromEnum level
     colours = fmap (tint 0.05) (brewerSet palette (maxval + 1))
---  letters = reverse (brewerSet Greys (maxval + 1))
---  letters = [black, black, black, white, white, white]
     letters = repeat black
+
+    box = text (T.unpack paragraph)
+            # fc (letters !! score)
+            # font "Nimbus Sans L"
+            # fontSize (local 1)
+            <>
+            rect 19 15 # fc (colours !! score)
+
+    ord = topLeftText (show score)
+            # font "Nimbus Sans L"
+            # fontSize (local 2)
+            # translate (r2 (-9,2))
+            <>
+            rect 1 6 # lineWidth 0
   in
-    text (T.unpack paragraph)
-        # fc (letters !! score)
-        # font "Nimbus Sans L"
-        # fontSize (local 1)
-        <> rect 19 15 # fc (colours !! score)
+    box
+    ===
+    ord
 
 
 
