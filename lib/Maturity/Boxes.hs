@@ -79,8 +79,27 @@ drawRubricIntoBoxes (_ :: a) palette =
         enumFrom (minBound @a)
     boxes = 
         fmap (drawLevelIntoBox palette) levels
-  in
-    hcat boxes
+    label =
+        baselineText (T.unpack (title @a))
+            # font "Nimbus Sans L"
+            # fontSize (local 2)
+            # translate (r2 (-9,0))
+        <> rect 0 4 # lineWidth 0
+    explanation =
+        baselineText (T.unpack (wrap 75 (summary @a)))
+            # font "Linux Libertine O"
+            # italic
+            # fontSize (local 1.5)
+            # translate (r2 (-8.9,2))
+        <> rect 0 7 # lineWidth 0
+   in
+    vcat
+        [ label,
+          explanation,
+          hcat boxes
+        ]
+
+
 
 --
 -- | Given a Rubric value, output a wrapped version of its description in a Box.
@@ -111,7 +130,7 @@ drawLevelIntoBox palette (level :: a) =
             # font "Nimbus Sans L"
             # fontSize (local 1)
             <>
-            rect 19 15 # fc (colours !! score)
+            rect 19 15 # fc (colours !! score) # lineWidth 0.7
 
     ord = topLeftText (show score)
             # font "Nimbus Sans L"
@@ -124,5 +143,7 @@ drawLevelIntoBox palette (level :: a) =
     ===
     ord
 
-
+{-
+    That's cute, but really?
+-}
 
