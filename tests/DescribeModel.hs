@@ -1,21 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE NoMonomorphismRestriction #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE TypeApplications #-}
 {-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
 module Main where
 
-
 import Data.Text (Text)
 import qualified Data.Text.IO as T
-import Diagrams.Prelude
-import Diagrams.Backend.Cairo.CmdLine
 
 import Maturity.Scale
-import Maturity.Boxes
 
 
 vault = Model
@@ -28,12 +20,12 @@ myself = Model
 
 
 main :: IO ()
-main = mainWith diagram
+main = do
+    T.putStrLn (describeModel vault)
 
-diagram :: Diagram B
-diagram = drawModelAsPage vault
+    T.putStrLn "vault"
+    T.putStrLn (outputScores vault)
+    T.putStrLn ""
+    T.putStrLn "myself"
+    T.putStrLn (outputScores myself)
 
-{-
-diagram :: Diagram B
-diagram = drawRubricIntoBoxes Deployable
--}
