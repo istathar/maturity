@@ -17,16 +17,20 @@ library
 
   build-depends:     base,
                      here,
-                     text
+                     text,
+                     diagrams-lib,
+                     diagrams-cairo,
+                     palette
 
   hs-source-dirs:    lib
 
   exposed-modules:   Maturity.Scale
+                     Text.Render
   other-modules:     Maturity.Types
                      Maturity.Component
                      Maturity.Instances
                      Maturity.Display
-                     Text.Render
+                     Maturity.Boxes
 
   ghc-options:       -O2
                      -Wall
@@ -55,6 +59,8 @@ executable           snippet
 
   build-depends:     base,
                      text,
+                     diagrams-lib,
+                     diagrams-cairo,
                      maturity
 
   ghc-options:       -threaded
@@ -73,8 +79,10 @@ executable           render-cairo
 
   build-depends:     base,
                      text,
+                     here,
                      diagrams-lib,
-                     diagrams-cairo
+                     diagrams-cairo,
+                     maturity
 
   ghc-options:       -threaded
                      -Wall

@@ -15,7 +15,6 @@ import Diagrams.Prelude
 import Diagrams.Backend.Cairo.CmdLine
 
 import Maturity.Scale
-import Maturity.Boxes
 
 
 vault = Model

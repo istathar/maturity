@@ -14,6 +14,9 @@ module Maturity.Scale
     describeModel,
     outputScores,
 
+    drawModelAsPage,
+    drawRubricIntoBoxes,
+
     Render(..)
 )
 where
@@ -22,4 +25,5 @@ import Maturity.Types
 import Maturity.Component
 import Maturity.Instances ()
 import Maturity.Display
+import Maturity.Boxes
 import Text.Render

@@ -9,7 +9,7 @@ module Text.Render (
     underline
 ) where
 
-import Data.List (foldl', intersperse)
+import Data.List (foldl')
 import Data.Monoid ((<>))
 import Data.Text (Text)
 import qualified Data.Text as Export (Text)
