@@ -32,14 +32,14 @@ import Maturity.Instances ()
 drawModelAsPage :: Model -> Drawing b n
 drawModelAsPage
     (Model
-        (Technical conceptual technical)
+        (Technical conceptual implementation)
         (Operational customer security service)
     ) =
     frame 2 $ vcat
         [ drawMaturityLabel "Technical Maturity"
         , hcat' (with & sep .~ 5) [
           drawRubricIntoBoxes conceptual Greens
-        , drawRubricIntoBoxes technical Blues]
+        , drawRubricIntoBoxes implementation Blues]
         , drawMaturityLabel "Operational Maturity"
         , hcat' (with & sep .~ 5) [
           drawRubricIntoBoxes customer Purples

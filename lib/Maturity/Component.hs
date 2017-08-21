@@ -68,7 +68,7 @@ data TechnicalProgress
     | Optimized
 
 instance Rubric TechnicalProgress where
-    title = "Technical Progress"
+    title = "Implementation Progress"
 
     summary = [here|
         How far has the project progressed from it's
@@ -79,7 +79,7 @@ instance Rubric TechnicalProgress where
 
     description Beginning = [here|
         Theoretical work that may develop into a
-        Component has begun.
+        component has begun.
     |]
 
     description DesignChoices = [here|
@@ -131,7 +131,7 @@ instance Rubric CustomerViewpoint where
     title = "Customer's Viewpoint"
 
     summary = [here|
-        The degree of completeness of a Component, from
+        The degree of completeness of a component, from
         a customer's point of view
     |]
 
@@ -216,7 +216,7 @@ instance Rubric ServiceManagement where
         are defined and agreed.
     |]
     description IncidentReponse = [here|
-        Service Provider Group designated and active.
+        Incident response team is designated and active.
     |]
     description Budget = [here|
         Funding for this component to be run as an

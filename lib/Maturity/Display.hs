@@ -88,13 +88,13 @@ listItem ordinal first =
 describeModel :: Model -> Text
 describeModel
     (Model
-        (Technical conceptual technical)
+        (Technical conceptual implementation)
         (Operational customer security service)
     ) =
     T.intercalate "\n"
         [ describeMaturity "Technical Maturity"
         , describeLevel conceptual
-        , describeLevel technical
+        , describeLevel implementation
         , ""
         , describeMaturity "Operational Maturity"
         , describeLevel customer
