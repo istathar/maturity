@@ -74,7 +74,7 @@ executable           snippet
   main-is:           Snippet.hs
  
 
-executable           render-cairo
+executable           render-model
   default-language:  Haskell2010
 
   build-depends:     base,
@@ -91,9 +91,8 @@ executable           render-cairo
                      -fno-warn-type-defaults
                      -fno-warn-unused-imports
 
-  hs-source-dirs:    tests
-  main-is:           RenderExampleViaCairo.hs
-  other-modules:     Example
+  hs-source-dirs:    src
+  main-is:           RenderModelDescription.hs
                       
                       
                       

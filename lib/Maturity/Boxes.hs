@@ -35,7 +35,7 @@ drawModelAsPage
         (Technical conceptual implementation)
         (Operational customer security service)
     ) =
-    frame 2 $ vcat
+    frame 1 $ vcat
         [ drawMaturityLabel "Technical Maturity"
         , hcat' (with & sep .~ 5) [
           drawRubricIntoBoxes conceptual Greens
