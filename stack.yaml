@@ -1,4 +1,4 @@
-resolver: lts-8.23
+resolver: lts-10.5
 
 extra-deps:
 - diagrams-pgf-1.4
