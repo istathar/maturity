@@ -1,5 +1,9 @@
-resolver: lts-10.5
+resolver: lts-14.25
 
 extra-deps:
-- diagrams-pgf-1.4
-- texrunner-0.0.1.1
+- diagrams-cairo-1.4.1.1
+- palette-0.3.0.2
+- cairo-0.13.8.0
+- pango-0.13.8.0
+- glib-0.13.8.0
+- gtk2hs-buildtools-0.13.8.0
